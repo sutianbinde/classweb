@@ -29,7 +29,7 @@ router.post('/login', function(req, res, next) {
 //退出
 router.post('/logout', function(req, res, next) {
 	
-	req.session.username = ""; //清除session
+	req.session.username = ""; //清除session中的用户信息
 	req.session.password = "";
 	res.end('{"success":"true"}');
 });
