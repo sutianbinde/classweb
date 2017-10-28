@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+import "fontawesome";
+
 export default {
   name: 'app'
 }

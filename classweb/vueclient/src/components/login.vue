@@ -41,7 +41,11 @@
 						password:this.password
 				}).then(function(result){ 
 					//成功
-					console.log(result)
+					if(result.data.err){
+						alert(result.data.err);
+					}else{
+						_this.$router.push({path:'/backIndex/indexContent'});
+					}
 					_this.disablebtn = false;
 					_this.loginText = "登录";
 					
