@@ -59,6 +59,33 @@ var find = function(db,collections,selector,fn){
 
 }
 
+//page
+var page = function(db,collections,selector,fn){
+  
+  var collection = db.collection(collections);
+  var count = 0;
+  collection.count({},function(err1,count1){
+  	try{
+	    assert.equal(err1,null);
+	  }catch(e){
+	    console.log(e);
+	  }
+  	count = count1;
+  });
+	collection.find(selector[0],selector[1]).toArray(function(err,result){
+	  try{
+	    assert.equal(err,null);
+	  }catch(e){
+	    console.log(e);
+	    result = [];
+	  }
+	  
+	  fn(result,count); //回掉函数可接收两个参数，查询的数据 和 总数据条数
+	  db.close();
+	});
+	
+
+}
 
 //update
 var updates = function(db,collections,selector,fn){
@@ -92,7 +119,8 @@ var methodType = {
   updatePwd:updates,
   //portal部分
   showCourse:find,
-  register:add
+  register:add,
+  page:page
 };
 //主逻辑    服务器  ， 请求    --》 
 // req.route.path ==》 防止前端的请求 直接操作你的数据库
